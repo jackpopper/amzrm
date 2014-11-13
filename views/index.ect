@@ -1,0 +1,365 @@
+<% url = 'http://157.7.129.241/' %>
+<!DOCTYPE html>
+<html lang="ja" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.com/2008/fbml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta property="og:title" content="amazonランキングモジュール作成ツール : amzrm" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="<%= url %>" />
+<meta property="og:image" content="<%= url %>/images/blank.gif" />
+<meta property="og:site_name" content="amzrm" />
+<meta property="og:description" content="amazonベストセラーランキングモジュールを手軽に作成するツールです。" />
+<meta property="fb:app_id" content="400157696672051" />
+<meta description="amazonベストセラーランキングモジュールを手軽に作成するツールです。" />
+<title>amazonランキングモジュール作成ツール : amzrm</title>
+<link href="/stylesheets/bootstrap.min.css" rel="stylesheet">
+<link href="/stylesheets/jquery.fancybox.css" rel="stylesheet">
+<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<style type="text/css">
+div.social ul {list-style-type:none;margin:0;padding:0;}
+div.social li {float:left;margin:5px;}
+div.clearLeft {clear:left;}
+iframe.twitter-share-button {width:90px!important;}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="navbar">
+<div class="navbar-inner">
+<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</a>
+<a class="brand" href="/">amzrm</a>
+<div class="nav-collapse">
+<ul class="nav">
+<li class="active"><a href="/">作成ツール</a></li>
+<li><a href="/sample/">サンプル</a></li>
+</ul>
+</div><!--/.nav-collapse -->
+</div>
+</div><!--/.navbar -->
+
+<div class="row">
+<div class="span8 offset2">
+
+<noscript>
+<div class="alert alert-error">
+このツールはjavascriptをONにしていないと動作いたしません。
+</div>
+</noscript>
+
+<div class="hero-unit">
+<h2>amazonランキングモジュール作成ツール</h2>
+<br />
+<ul>
+<li style="color:red;">現在アクセス過多のため、1ページ1モジュールのご利用をお願いいたします</li>
+<li style="color:red;">代わりに1モジュールでの複数カテゴリ表示に対応しました</li>
+<li>作成されたコードを貼り付けるだけで簡単にモジュールを設置</li>
+<li>登録不要</li>
+<li>豊富なカテゴリ設定</li>
+<li>ランキングは1時間に1回更新</li>
+<li>商品の並べ方は縦・横どちらでもOK</li>
+<li>画像サイズをpx単位で指定</li>
+<li>カテゴリ名・商品名・ランキング順位の表示/非表示を設定可能</li>
+<li>アフィリエイトIDを設定することでamazonアフィリエイトに参加</li>
+<li>javascript未対応のブログでもiframe利用で貼り付け</li>
+</ul>
+</div><!--/.hero-unit -->
+
+<form class="form-horizontal" name="amzrm">
+<fieldset>
+<legend>作成フォーム</legend>
+
+<% for i in [1..3] : %>
+<div class="control-group">
+<label class="control-label">カテゴリ<%- i %></label>
+<div class="controls">
+<select class="span3 catnode" name="category<%- i %>" id="category<%- i %>">
+    <% if i isnt 1 : %>
+    <option value="">なし</option>
+    <% end %>
+    <% for id, title of @category : %>
+    <option value="<%= id %>" title="<%= id %>"><%= title.all %></option>
+    <% end %>
+</select>
+<select class="span3 catnode" name="node<%- i %>" id="node<%- i %>">
+<option value="all">全体</option>
+    <% for id, title of @category : %>
+        <% for node, subtitle of title : %>
+        <option value="<%= node %>" class="<%= id %>" title="<%= node %>"><%= subtitle %></option>
+        <% end %>
+    <% end %>
+</select>
+    <% if i is 1 : %>
+    <p class="help-block"><%- i %>段目のカテゴリ。2つ目のカテゴリは1つ目のカテゴリのサブカテゴリになります</p>
+    <% else : %>
+    <p class="help-block"><%- i %>段目のカテゴリ。複数段表示用。なしでもかまいません</p>
+    <% end %>
+</div>
+</div>
+<% end %>
+
+<div class="control-group">
+<label class="control-label">ランキングタイプ</label>
+<div class="controls">
+<select class="span4" name="type" id="type">
+<option value="bestsellers" title="bestsellers">ベストセラー</option>
+<option value="new-releases" title="new-releases">新着ニューリリース</option>
+</select>
+</div>
+</div>
+
+<div class="control-group">
+<label class="control-label">表示順位</label>
+<div class="controls">
+<div class="input-prepend input-append">
+<span class="add-on">1位～</span><select class="span1" name="num" id="num">
+<% for i in [1..10] : %>
+    <% if i is 10 : %>
+        <option value="<%= i %>" selected><%= i %></option>
+    <% else : %>
+        <option value="<%= i %>"><%= i %></option>
+    <% end %>
+<% end %>
+</select><span class="add-on">位</span>
+</div>
+<p class="help-block">1位から指定された順位のランキングまでを表示します</p>
+</div>
+</div>
+
+<div class="control-group">
+<label class="control-label">商品の並べ方</label>
+<div class="controls">
+<label class="radio inline">
+<input type="radio" name="xy" id="xy_x" value="x">横</label>
+<label class="radio inline">
+<input type="radio" name="xy" id="xy_y" value="y" checked>縦</label>
+<p class="help-block">モジュール内での商品の並べ方を指定します</p>
+</div>
+</div>
+
+<div class="control-group">
+<label class="control-label">画像サイズ</label>
+<div class="controls">
+<div class="input-append">
+<input type="text" class="input-medium" id="img_size" name="img_size" value="160"><span class="add-on">px</span>
+</div>
+<p class="help-block">商品画像1枚の横幅を入力してください</p>
+</div>
+</div>
+
+<div class="control-group">
+<label class="control-label">カテゴリ名表示</label>
+<div class="controls">
+<label class="radio inline">
+<input type="radio" name="category_title" id="category_title_off" value="0" checked>表示しない</label>
+<label class="radio inline">
+<input type="radio" name="category_title" id="category_title_on" value="1">表示する</label>
+<p class="help-block">モジュール上部にamazonカテゴリランキングへのリンクを表示します</p>
+</div>
+</div>
+
+<div class="control-group">
+<label class="control-label">商品名表示</label>
+<div class="controls">
+<label class="radio inline">
+<input type="radio" name="title" id="title_off" value="0">表示しない</label>
+<label class="radio inline">
+<input type="radio" name="title" id="title_on" value="1" checked>表示する</label>
+<p class="help-block">商品画像下に商品名を表示します</p>
+</div>
+</div>
+
+<div class="control-group">
+<label class="control-label">ランキング順位表示</label>
+<div class="controls">
+<label class="radio inline">
+<input type="radio" name="rank" id="rank_off" value="0" checked>表示しない</label>
+<label class="radio inline">
+<input type="radio" name="rank" id="rank_on" value="1">表示する</label>
+<p class="help-block">商品名の横にランキング順位を表示します</p>
+<p class="help-block">商品名表示offではご利用できません</p>
+</div>
+</div>
+
+<div class="control-group">
+<label class="control-label">amazonアフィリエイトID</label>
+<div class="controls">
+<input type="text" class="input-medium" id="tag" name="tag">
+<p class="help-block">ご自身のamazonアフィリエイトIDを入力してください</p>
+<p class="help-block">未入力でもランキングモジュールはご利用いただけます</p>
+<p class="help-block">なお、ツール開発者のアフィリエイトIDをランダムに1個の商品に挿入させていただきます</p>
+</div>
+</div>
+
+<div class="control-group">
+<label class="control-label">貼り付け方法</label>
+<div class="controls">
+<label class="radio inline">
+<input type="radio" name="fmt" id="fmt_js" value="js" checked>javascript（推奨）</label>
+<label class="radio inline">
+<input type="radio" name="fmt" id="fmt_html" value="html">iframe</label>
+<p class="help-block">貼り付け方法を指定します</p>
+<p class="help-block">javascriptを使用できない環境の場合はiframeをご利用ください</p>
+</div>
+</div>
+
+<div class="form-actions">
+<button type="button" class="btn btn-primary" id="generate">貼り付けコード作成＆プレビュー</button>
+<!--<button type="button" class="btn" id="preview" href="">プレビュー</button>-->
+<span class="alert alert-error" id="generate-alert" style="visibility:hidden;">
+<i class="icon-warning-sign"></i> <strong>画像サイズ</strong>が正しくありません
+</span>
+</div>
+
+</fieldset>
+</form>
+
+<form class="well">
+<div class="control-group">
+<label class="control-label" for="textarea">貼り付けコード</label>
+<div class="controls">
+<textarea class="input-xlarge" id="code" rows="10" style="width:570px"></textarea>
+<p class="help-block" id="code-help" style="visibility:hidden;">
+<i class="icon-warning-sign"></i> width,heightの値は仮のため、適宜変更してご利用ください
+</p>
+</div>
+</div>
+</form>
+
+</div>
+</div><!--/.row -->
+
+<hr>
+
+<footer class="footer">
+<p class="pull-right"><a href="#">ページ上部に移動</a></p>
+<p>&copy; amzrm 
+<script type="text/javascript">var dt=new Date();document.write(dt.getFullYear());</script>
+</p>
+</footer><!--/.footer -->
+
+</div><!--/.container -->
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<!--<script src="/javascripts/bootstrap.min.js"></script>-->
+<script src="/javascripts/jquery.dependent.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+    $('select#node1').dependent({
+        parent:'category1',
+        defaultText: '全体'
+    });
+    $('select#node2').dependent({
+        parent:'category2',
+        defaultText: '全体'
+    });
+    $('select#node3').dependent({
+        parent:'category3',
+        defaultText: '全体'
+    });
+/*
+    $('select#node').change(function(){
+        if($('select#node option:selected').val()!=''){
+            $("option[title='movers-and-shakers']").remove();
+        }else{
+            $('select#type').append($('<option>').attr({value:'movers-and-shakers',title:'movers-and-shakers'}).text('ヒット商品'));
+        }
+    });
+    $('select#category').change(function(){
+        if($("option[title='movers-and-shakers']").val()==null){
+            $('select#type').append($('<option>').attr({value:'movers-and-shakers',title:'movers-and-shakers'}).text('ヒット商品'));
+        }
+    });
+*/
+    $("input[name='title']").click(function(){
+        if($("input[name='title']:checked").val()==0){
+            $('input#rank_off').attr("checked", true);
+            $("input[name='rank']").attr("disabled", true);
+        }else{
+            $("input[name='rank']").attr("disabled", false);
+        }
+    });
+/*
+    $("input[name='fmt']").click(function(){
+        if($("input[name='fmt']:checked").val()=='html'){
+            $('input#ie_utf8').attr('checked', true);
+            $("input[name='ie']").attr("disabled", true);
+        }else{
+            $("input[name='ie']").attr("disabled", false);
+        }
+    });
+*/
+    $('button#generate').click(function(){
+        var url = new String('<%= url %>m/');
+        url += '?category='+$('select#category1 option:selected').val();
+        url += ':'+$('select#node1 option:selected').val();
+        if ($('select#category2 option:selected').val()!=''){
+            url += ','+$('select#category2 option:selected').val();
+            url += ':'+$('select#node2 option:selected').val();
+        }
+        if ($('select#category3 option:selected').val()!=''){
+            url += ','+$('select#category3 option:selected').val();
+            url += ':'+$('select#node3 option:selected').val();
+        }
+        url += '&type='+$('select#type option:selected').val();
+        url += '&num='+$('select#num option:selected').val();
+        url += '&xy='+$("input[name='xy']:checked").val();
+        var imgSize = parseInt($("input#img_size").val());
+        if(isNaN(imgSize)){
+            $('span#generate-alert').css('visibility','visible');
+            return false;
+        }else{
+            $('span#generate-alert').css('visibility','hidden');
+        }
+        if($("input[name='xy']:checked").val()=='x'){
+            imgSize = (imgSize+20)*parseInt($('select#num option:selected').val());
+            var categoryTitleClass = new String('font-size:medium;text-align:left;margin:5px;');
+            var itemClass = new String('display:block;width:'+$("input#img_size").val()+'px;padding:0 5px;float:left;');
+        }else{
+            var categoryTitleClass = new String('font-size:medium;text-align:center;');
+            var itemClass = new String('display:block;width:'+$("input#img_size").val()+'px;padding:5px 0;');
+        }
+        url += '&img_size='+$("input#img_size").val();
+        url += '&category_title='+$("input[name='category_title']:checked").val();
+        url += '&title='+$("input[name='title']:checked").val();
+        url += '&rank='+$("input[name='rank']:checked").val();
+        if($("input#tag").val()!=''){url += '&tag='+$("input#tag").val();}
+        var prevUrl = new String(url+'&ie=UTF-8&fmt=html');
+        var fmt = new String($("input[name='fmt']:checked").val());
+        url += '&fmt='+fmt;
+        var codeText = new String();
+        if(fmt=='js'){
+            codeText += '<script type="text/javascript" src="'+url+'">'+"<\/script>\n";
+            codeText += '<style type="text/css">#amzrm img{border:none;}#amzrm a{text-decoration:none;color:#1111cc;}#amzrm{width:'+imgSize+'px;text-align:center;font-size:small;font-weight:bold;}#amzrm_category_title{'+categoryTitleClass+'}.amzrm_item{'+itemClass+'}.amzrm_item_title{}.amzrm_item_price span{color:#990000;}</style>';
+            $('p#code-help').css('visibility','hidden');
+        }else if(fmt=='html'){
+            codeText += '<iframe src="'+url+'" scrolling="auto" frameborder="0" allowtransparency="true" width="'+imgSize+'px" height="700px"></iframe>';
+            $('p#code-help').css('visibility','visible');
+        }
+        $('textarea#code').val(codeText);
+        $('button#generate').attr('href',prevUrl);
+        $('button#generate').fancybox({
+            type      : 'iframe',
+            padding   : '0',
+            maxWidth  : imgSize+17,
+            autoSize  : true,
+            fitToView : true,
+        });
+    });
+    $('textarea#code').click(function(){$(this).select();});
+});
+</script>
+
+<script type="text/javascript">
+var _gaq=_gaq||[];_gaq.push(['_setAccount','UA-20591268-7']);_gaq.push(['_trackPageview']);(function(){var ga=document.createElement('script');ga.type='text/javascript';ga.async=true;ga.src=('https:'==document.location.protocol?'https://ssl':'http://www')+'.google-analytics.com/ga.js';var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(ga,s);})();
+</script>
+</body>
+</html>

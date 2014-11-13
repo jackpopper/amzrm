@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta description="amazonランキングモジュール作成ツール 貼り付けサンプル" />
+<title>amazonランキングモジュール作成ツール 貼り付けサンプル: amzrm</title>
+<link href="/stylesheets/bootstrap.min.css" rel="stylesheet">
+<link href="/stylesheets/prettify.css" rel="stylesheet">
+<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+</head>
+<body onload="prettyPrint()">
+<div class="container">
+
+<div class="navbar">
+<div class="navbar-inner">
+<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</a>
+<a class="brand" href="/">amzrm</a>
+<div class="nav-collapse">
+<ul class="nav">
+<li><a href="/">作成ツール</a></li>
+<li class="active"><a href="/sample/">サンプル</a></li>
+</ul>
+</div><!--/.nav-collapse -->
+</div>
+</div><!--/.navbar -->
+
+<div class="row">
+<div class="span3">
+<div style="width:200px;margin:0;padding:0;border:3px #999999 dashed;">
+<script type="text/javascript" src="/m/?category=dvd:562020&num=10&xy=y&img_size=200&category_title=1&title=1&rank=1&target=1&tag=mytk05-22&fmt=js"></script><style type="text/css">#amzrm img{border:none;}#amzrm a{text-decoration:none;color:#1111cc;}#amzrm{width:200px;text-align:center;font-size:small;font-weight:bold;}#amzrm_category_title{font-size:medium;text-align:center;}.amzrm_item{display:block;width:200px;padding:5px 0;}.amzrm_item_title{}.amzrm_item_price span{color:#990000;}</style>
+</div>
+</div>
+<div class="span9">
+<div class="hero-unit">
+<h2>Amazonランキングモジュール貼り付けサンプル</h2>
+<br />
+<p>モジュールの範囲がわかりやすいように灰色の点線で囲んでいます。</p>
+
+<br />
+<p><strong>← 縦の貼り付けサンプル(javascript版)</strong></p>
+<p>javascript版は貼り付けコード内のCSSを編集することで、モジュールの見た目などを編集することができます。</p>
+<p>「<a href="#jscss">javascript版貼り付けコードCSS説明</a>」を参考にしてください。</p>
+
+<br />
+<p><strong>↓ 横の貼り付けサンプル(iframe版)</strong></p>
+</div>
+<div style="width:690px;margin:0;padding:0;border:3px #999999 dashed;">
+<iframe src="/m/?category=books:2501045051&num=10&xy=x&img_size=120&category_title=1&title=1&rank=1&target=1&tag=mytk05-22&fmt=html" scrolling="auto" frameborder="0" allowtransparency="true" width="690px" height="300px"></iframe>
+</div>
+
+<section id="code">
+<div>
+
+<div class="page-header">
+<a name="jscss"></a>
+<h3>javascript版貼り付けコードCSS説明</h3>
+</div>
+<p>以下を参考にCSS部分を書き換えてカスタマイズすることができます。</p>
+<pre class="prettyprint linenums">
+&lt;style type="text/css"&gt;
+/* モジュール内画像設定 */
+#amzrm img{border:none;}
+/* モジュール内リンク設定 */
+#amzrm a{text-decoration:none;color:#1111cc;}
+/* モジュール全体設定 */
+#amzrm{width:200px;text-align:center;font-size:small;font-weight:bold;}
+/* カテゴリタイトルブロック設定 */
+#amzrm_category_title{font-size:medium;text-align:center;}
+/* 商品ブロック設定 */
+.amzrm_item{display:block;width:200px;padding:5px 0;}
+/* 商品名ブロック設定 */
+.amzrm_item_title{}
+/* 商品価格ブロック設定 */
+.amzrm_item_price span{color:#990000;}
+&lt;/style&gt;
+</pre>
+
+<div class="page-header">
+<h3>javascript版モジュール内容</h3>
+</div>
+<pre class="prettyprint linenums">
+document.write('
+&lt;div id="amzrm"&gt;
+  &lt;div id="amzrm_category_title"&gt;
+    &lt;a href="http://www.amazon.co.jp/gp/bestsellers/dvd/562020/ref=pd_zg_rss_ts_d_562020_c&tag=mytk05-22" target="_blank"&gt;アニメのベストセラー&lt;/a&gt;
+  &lt;/div&gt;
+  &lt;div class="amzrm_item"&gt;
+    &lt;a href="http://www.amazon.co.jp/%E6%98%A0%E7%94%BB%E3%81%91%E3%81%84%E3%81%8A%E3%82%93-Blu-ray-%E5%88%9D%E5%9B%9E%E9%99%90%E5%AE%9A%E7%89%88-%E5%B1%B1%E7%94%B0%E5%B0%9A%E5%AD%90/dp/B007UXG5U4/ref=pd_zg_rss_ts_d_562020_1&tag=mytk05-22"&gt;
+      &lt;img src="http://ecx.images-amazon.com/images/I/51F8Bhg8cfL._SX200_.jpg"&gt;
+    &lt;/a&gt;
+    &lt;div class="amzrm_item_title"&gt;
+      &lt;span&gt;1. &lt;a href="http://www.amazon.co.jp/%E6%98%A0%E7%94%BB%E3%81%91%E3%81%84%E3%81%8A%E3%82%93-Blu-ray-%E5%88%9D%E5%9B%9E%E9%99%90%E5%AE%9A%E7%89%88-%E5%B1%B1%E7%94%B0%E5%B0%9A%E5%AD%90/dp/B007UXG5U4/ref=pd_zg_rss_ts_d_562020_1&tag=mytk05-22"&gt;映画けいおん!  (Blu-ray 初回限定版)&lt;/a&gt;&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class="amzrm_item_price"&gt;価格： &lt;span&gt;￥ 6,838&lt;/span&gt;&lt;/div&gt;
+  &lt;/div&gt;
+
+ ...
+
+  &lt;div style="text-align:right;margin:0 5px;"&gt;
+    &lt;span style="color:gray;"&gt;Powerd by &lt;/span&gt;&lt;a href="http://amzrm.com"&gt;amzrm&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+')
+</pre>
+
+<div class="page-header">
+<h3>iframe版モジュール内容</h3>
+</div>
+<p>iframe版ではCSSの書き換えはできません。ご了承ください。</p>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="ja"&gt;
+&lt;head&gt;
+&lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /&gt;
+&lt;style type="text/css"&gt;
+#amzrm img{border:none;}
+#amzrm a{text-decoration:none;color:#1111cc;}
+#amzrm{width:1400px;text-align:center;font-size:small;font-weight:bold;}
+#amzrm_category_title{font-size:medium;text-align:left;margin:5px;}
+.amzrm_item{display:block;width:120px;padding:0 5px;float:left;}
+.amzrm_item_title{}
+.amzrm_item_price span{color:#990000;}
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body style="background-color:transparent;padding:0;margin:0;text-align:center;"&gt;
+&lt;div id="amzrm"&gt;
+  &lt;div id="amzrm_category_title"&gt;
+    &lt;a href="http://www.amazon.co.jp/gp/bestsellers/books/466280/ref=pd_zg_rss_ts_b_466280_c&tag=mytk05-22" target="_blank"&gt;漫画・アニメ・BLのベストセラー&lt;/a&gt;
+  &lt;/div&gt;
+  &lt;div class="amzrm_item"&gt;
+    &lt;a href="http://www.amazon.co.jp/%E6%96%B0%E4%B8%96%E7%B4%80%E3%82%A8%E3%83%B4%E3%82%A1%E3%83%B3%E3%82%B2%E3%83%AA%E3%82%AA%E3%83%B3-13-%E3%80%90%E3%83%97%E3%83%AC%E3%83%9F%E3%82%A2%E3%83%A0%E9%99%90%E5%AE%9A%E7%89%88%E3%80%91-%E3%82%AB%E3%83%89%E3%82%AB%E3%83%AF%E3%82%B3%E3%83%9F%E3%83%83%E3%82%AF%E3%82%B9%E3%82%A8%E3%83%BC%E3%82%B9-%E8%B2%9E%E6%9C%AC/dp/4041203554/ref=pd_zg_rss_ts_b_466280_1&tag=mytk05-22"&gt;&lt;img src="http://g-ecx.images-amazon.com/images/G/09/icons/books/comingsoon_books._V192259528_.gif"&gt;&lt;/a&gt;
+    &lt;div class="amzrm_item_title"&gt;
+      &lt;span&gt;1. &lt;a href="http://www.amazon.co.jp/%E6%96%B0%E4%B8%96%E7%B4%80%E3%82%A8%E3%83%B4%E3%82%A1%E3%83%B3%E3%82%B2%E3%83%AA%E3%82%AA%E3%83%B3-13-%E3%80%90%E3%83%97%E3%83%AC%E3%83%9F%E3%82%A2%E3%83%A0%E9%99%90%E5%AE%9A%E7%89%88%E3%80%91-%E3%82%AB%E3%83%89%E3%82%AB%E3%83%AF%E3%82%B3%E3%83%9F%E3%83%83%E3%82%AF%E3%82%B9%E3%82%A8%E3%83%BC%E3%82%B9-%E8%B2%9E%E6%9C%AC/dp/4041203554/ref=pd_zg_rss_ts_b_466280_1&tag=mytk05-22"&gt;新世紀エヴァンゲリオン (13) 【プレミアム限定版】 (カドカワコミックスエース)&lt;/a&gt;&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class="amzrm_item_price"&gt;価格： &lt;span&gt;￥ 893&lt;/span&gt;&lt;/div&gt;
+  &lt;/div&gt;
+
+ ...
+
+  &lt;div style="text-align:left;margin:0 5px;clear:left"&gt;
+    &lt;span style="color:gray;"&gt;Powerd by &lt;/span&gt;&lt;a href="http://amzrm.com/"&gt;amzrm&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+
+</div>
+</section>
+
+</div>
+</div><!--/.row -->
+
+<hr>
+
+<footer class="footer">
+<p class="pull-right"><a href="#">ページ上部に移動</a></p>
+<p>&copy; amzrm 
+<script type="text/javascript">var dt=new Date();document.write(dt.getFullYear());</script>
+</p>
+</footer><!--/.footer -->
+
+</div><!--/.container -->
+
+<script src="/javascripts/prettify.js"></script>
+<script type="text/javascript">                                                                                                              
+var _gaq=_gaq||[];_gaq.push(['_setAccount','UA-20591268-7']);_gaq.push(['_trackPageview']);(function(){var ga=document.createElement('script');ga.type='text/javascript';ga.async=true;ga.src=('https:'==document.location.protocol?'https://ssl':'http://www')+'.google-analytics.com/ga.js';var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(ga,s);})();
+</script>
+</body>
+</html>
