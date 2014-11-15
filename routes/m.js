@@ -10,9 +10,9 @@ router.get('/', function(req, res) {
     var imgSize = (req.query.img_size) ? req.query.img_size : 160;
     var num = (req.query.num && req.query.num >= 1 && req.query.num <= 10) ? req.query.num : 5;
     var xy = (req.query.xy) ? req.query.xy : 'y';
-    var categoryTitle = (req.query.category_title) ? true : false;
-    var title = (req.query.title) ? true : false;
-    var rank = (req.query.rank) ? true : false;
+    var categoryTitle = (req.query.category_title == 1) ? true : false;
+    var title = (req.query.title == 1) ? true : false;
+    var rank = (req.query.rank == 1) ? true : false;
     var fmt = (req.query.fmt) ? req.query.fmt : 'js';
     var data = [];
 
